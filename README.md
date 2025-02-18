@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements an **AES (Advanced Encryption Standard) encryption and decryption** core in Verilog. It supports multiple key lengths (128-bit, 192-bit, and 256-bit) and provides both encryption and decryption functionality.
+This project implements an **AES (Advanced Encryption Standard) encryption and decryption**. It supports multiple key lengths (128-bit, 192-bit, and 256-bit) and provides both encryption and decryption functionality.
 
 ## Features
 
