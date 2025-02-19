@@ -1,0 +1,76 @@
+`timescale 1ns / 1ps
+module AES_TB;
+
+reg    clk;
+reg    rst;
+reg    KeyValid;
+reg    [0:127] InTxt;
+reg    [0:255]  Key;
+reg    [3:0]    Nk;     // External Input, 4, 6, 8
+reg    [3:0]     Nr;    // External Input, 10, 12, 14
+wire   [0:127]   OutTxt;
+wire   EncFinish;
+wire   DecFinish;
+
+parameter clk_period = 20;
+
+AES_TOP DUT (
+    .clk(clk),
+    .rst(rst),
+    .KeyValid(KeyValid),
+    .InTxt(InTxt),
+    .Key(Key),
+    .Nk(Nk),
+    .Nr(Nr),                 
+    .OutTxt(OutTxt),
+    .EncFinish(EncFinish),
+    .DecFinish(DecFinish)
+    );
+
+always #(clk_period/2) clk = ~clk;
+
+initial begin
+    initialize();
+    reset();
+    Nk = 4'd4;
+    Nr = 4'd10;
+    Key [0:127] = 'h000102030405060708090a0b0c0d0e0f;
+    InTxt = 'h00112233445566778899aabbccddeeff;
+    KeyValid = 1'b1;
+    #(clk_period);
+    KeyValid = 1'b0;
+
+    wait (EncFinish);
+        if (DUT.AddRoundKey_In == 'h69c4e0d86a7b0430d8cdb78070b4c55a) begin
+           $display ("Encryption done successfully"); 
+        end
+        else begin
+            $display ("Encryption failed...output = %x at %2t",DUT.AddRoundKey_In,$time);
+        end
+    
+    #(200*clk_period);
+    $stop;
+end
+
+task initialize;
+begin
+clk = 0;
+rst = 1;
+Key = 'b0;
+Nk = 'b0;
+Nr = 'b0;
+InTxt = 'b0;
+KeyValid = 1'b0;
+end
+endtask
+
+task reset;
+begin
+rst = 1'b0;
+#(clk_period);
+rst = 1'b1;
+#(clk_period);
+end
+endtask
+
+endmodule
