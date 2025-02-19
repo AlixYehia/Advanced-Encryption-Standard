@@ -10,10 +10,10 @@ This project implements an **AES (Advanced Encryption Standard) encryption and d
 - Implements both **encryption and decryption**
 
 ## Contributors:
-**Ali Yehia** : MixColumns.v, SubBytes.v, Encryption.v
+**Ali Yehia** : MixColumns.v, InvMixColumns, SubBytes.v, Encryption.v
 
-**Ahmed Seddik** : KeyExpansion.v, AES_encrypt.v
+**Ahmed Seddik** : KeyExpansion.v, AES_encrypt.v, AES_decrypt.v
 
-**Amira Khaled** : SubByte.v & InvSubByte.v, AES_decrypt.v
+**Amira Khaled** : SubByte.v & InvSubByte.v, AES_TOP_tb
 
-**Sahar Sallam** : AddRoundKey, ShiftRows.v, AES_decrypt.v
+**Sahar Sallam** : ShiftRows.v, InvShiftRows, MixColumns.v
